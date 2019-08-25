@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/api/v1/login" to: "Sessions#create"
+
 
    namespace :api do
     namespace :v1 do
