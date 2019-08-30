@@ -5,4 +5,20 @@ class Api::V1::BookcasesController < ApplicationController
         render json: BookcaseSerializer.new(@bookcases).serialized_json
     end
 
+    def create
+        @bookcase = Bookcase.new(bookcase_params)
+        if @bookcase.save
+          render json: @bookcase, status: :created
+        else
+          render json: @bookcase.errors, status: :unprocessable_entity
+        end
+    end
+
+    private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def bookcase_params
+      params.require(:bookcase).permit(:name)
+    end
 end
+
+
