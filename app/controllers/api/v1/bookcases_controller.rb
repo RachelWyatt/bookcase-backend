@@ -8,7 +8,7 @@ class Api::V1::BookcasesController < ApplicationController
     def create
         @bookcase = Bookcase.new(bookcase_params)
         if @bookcase.save
-          render json: @bookcase, status: :created
+          render json: BookcaseSerializer.new(@bookcase), status: :created
         else
           render json: @bookcase.errors, status: :unprocessable_entity
         end
