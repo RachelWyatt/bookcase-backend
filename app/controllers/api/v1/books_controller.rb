@@ -1,13 +1,13 @@
 class Api::V1::BooksController < ApplicationController
 
         def index
-            @bookcase = Bookcase.first
+            @bookcase = Bookcase.find(params[:bookcase_id])
             @books = @bookcase.books
             render json: @books
         end
 
         def create
-            @bookcase = Bookcase.first
+            @bookcase = Bookcase.find(params[:bookcase_id])
             @book = @bookcase.books.new(bookcase_params)
             if @book.save
               render json: @bookcase, status: :created
