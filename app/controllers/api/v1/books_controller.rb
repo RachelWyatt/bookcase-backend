@@ -7,10 +7,11 @@ class Api::V1::BooksController < ApplicationController
         end
 
         def create
+            
             @bookcase = Bookcase.find(params[:bookcase_id])
-            @book = @bookcase.books.new(bookcase_params)
+            @book = @bookcase.books.create(book_params)
             if @book.save
-              render json: @bookcase, status: :created
+              render json: BookcaseSerializer.new(@bookcase).serialized_json, status: :created
             else
               render json: @bookcase.errors, status: :unprocessable_entity
             end
@@ -18,7 +19,7 @@ class Api::V1::BooksController < ApplicationController
     
         private
         # Never trust parameters from the scary internet, only allow the white list through.
-        def bookcase_params
-          params.require(:book).permit(:title, :author, :page_count, :spine_color)
+        def book_params
+          params.require(:book).permit(:title, :author, :page_count, :spine_color, :bookcase_id)
         end
 end
