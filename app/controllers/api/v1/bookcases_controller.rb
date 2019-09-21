@@ -5,11 +5,6 @@ class Api::V1::BookcasesController < ApplicationController
         render json: BookcaseSerializer.new(@bookcases).serialized_json
     end
 
-    def show
-      @bookcase = Bookcase.first
-      render json:@bookcase
-    end
-
     def create
         @bookcase = Bookcase.new(bookcase_params)
         if @bookcase.save
